@@ -44,6 +44,9 @@ const programs = [
     emoji: "🤖",
     title: "4차 산업 핵심 기술 교육",
     desc: "AI, 코딩, 로봇, 데이터 리터러시를 현장 중심 커리큘럼으로 제공합니다.",
+    extraLinkLabel: "헥사보드 센서패키지 (로보몰) 🛒",
+    extraHref:
+      "https://robomall.co.kr/product/detail.html?product_no=26296&cate_no=670&display_group=1",
   },
   {
     emoji: "💡",
@@ -354,13 +357,26 @@ function Programs() {
               <p className="mt-3 flex-1 text-sm leading-7 text-slate-600 dark:text-slate-300">
                 {program.desc}
               </p>
-              <a
-                href="#"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-black text-slate-800 transition-all duration-300 hover:border-blue-500 hover:bg-blue-600 hover:text-white dark:border-white/15 dark:text-white dark:hover:border-blue-400"
-              >
-                상세 보기 (노션) ✨
-                <ArrowUpRight size={16} />
-              </a>
+              <div className="mt-6 flex flex-col gap-2">
+                <a
+                  href="#"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-black text-slate-800 transition-all duration-300 hover:border-blue-500 hover:bg-blue-600 hover:text-white dark:border-white/15 dark:text-white dark:hover:border-blue-400"
+                >
+                  상세 보기 (노션) ✨
+                  <ArrowUpRight size={16} />
+                </a>
+                {program.extraHref && (
+                  <a
+                    href={program.extraHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-gradient-to-r from-lime-100 via-emerald-100 to-teal-100 px-5 py-3 text-sm font-black text-emerald-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300 hover:from-lime-200 hover:via-emerald-200 hover:to-teal-200 hover:shadow-glow dark:border-emerald-300/30 dark:from-lime-300/20 dark:via-emerald-300/20 dark:to-teal-300/20 dark:text-emerald-100"
+                  >
+                    {program.extraLinkLabel}
+                    <ArrowUpRight size={16} />
+                  </a>
+                )}
+              </div>
             </article>
           ))}
         </div>
