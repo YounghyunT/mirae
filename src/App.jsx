@@ -66,7 +66,8 @@ const instagramProfileUrl = "https://www.instagram.com/jg_mirae";
 const researchGroups = [
   { name: "셈틀지기", emoji: "💻" },
   { name: "과나연", emoji: "🧠" },
-  { name: "금융교육", emoji: "💰" },
+  { name: "금융경제", emoji: "💰" },
+  { name: "방송영상", emoji: "🎬" },
 ];
 
 function scrollToSection(event, href) {
@@ -224,10 +225,10 @@ function Hero() {
             <div className="mt-6">
               <div className="mb-3 flex items-center justify-center gap-2 text-xs font-black text-slate-500 dark:text-slate-300">
                 <span className="h-px flex-1 bg-slate-200 dark:bg-white/15" />
-                <span>세 연구회의 미래융합 네트워크</span>
+                <span>네 연구회의 미래융합 네트워크</span>
                 <span className="h-px flex-1 bg-slate-200 dark:bg-white/15" />
               </div>
-              <div className="grid grid-cols-3 gap-2 text-center sm:gap-3">
+              <div className="grid grid-cols-2 gap-2 text-center sm:grid-cols-4 sm:gap-3">
                 {researchGroups.map((group, index) => (
                   <div
                     key={group.name}
@@ -247,7 +248,7 @@ function Hero() {
                 ))}
               </div>
               <p className="mt-4 rounded-2xl border border-blue-200 bg-blue-50/70 px-4 py-3 text-center text-sm font-black text-blue-800 dark:border-blue-300/20 dark:bg-blue-500/10 dark:text-blue-100">
-                💫 셈틀지기 × 과나연 × 금융교육, 함께 만드는 융합교육
+                💫 셈틀지기 × 과나연 × 금융경제 × 방송영상, 함께 만드는 융합교육
               </p>
             </div>
           </div>
