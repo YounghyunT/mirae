@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowUpRight,
   CalendarDays,
@@ -6,16 +6,15 @@ import {
   Instagram,
   Mail,
   Menu,
-  Moon,
-  Sun,
   Target,
   X,
 } from "lucide-react";
 
 const navItems = [
-  { label: "소개", href: "#about" },
+  { label: "소개", page: "about" },
   { label: "주요사업", href: "#programs" },
   { label: "공지사항", href: "#notice" },
+  { label: "유관기관/단체", href: "#partners" },
 ];
 
 const aboutItems = [
@@ -70,68 +69,118 @@ const researchGroups = [
   { name: "방송영상", emoji: "🎬" },
 ];
 
+const partnerOrganizations = [
+  {
+    name: "광주전파관리소",
+    logo: "/gwangju-radio.png",
+    href: "https://www.crms.go.kr/lay1/bbs/S1T245C246/G/60/list.do",
+  },
+  {
+    name: "국세청",
+    logo: "/nts.png",
+    href: "https://www.nts.go.kr/",
+  },
+  {
+    name: "국민권익위원회",
+    logo: "/acrc.png",
+    href: "https://www.acrc.go.kr/",
+  },
+];
+
 function scrollToSection(event, href) {
   event.preventDefault();
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
 }
 
-function NavLink({ item, onClick }) {
+function NavLink({ item, onClick, onNavigateHome }) {
   return (
     <a
-      href={item.href}
+      href={item.href || "#"}
       onClick={(event) => {
-        scrollToSection(event, item.href);
+        event.preventDefault();
+        if (item.page) {
+          onNavigateHome?.(item.page);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          onClick?.();
+          return;
+        }
+
+        onNavigateHome?.("home");
+        window.setTimeout(() => {
+          document
+            .querySelector(item.href)
+            ?.scrollIntoView({ behavior: "smooth" });
+        }, 0);
         onClick?.();
       }}
-      className="rounded-full px-3 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-200 dark:hover:text-blue-200"
+      className="rounded-full px-3 py-2 text-lg font-black text-slate-800 transition-all duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200 lg:px-4"
     >
       {item.label}
     </a>
   );
 }
 
-function Header() {
-  const [darkMode, setDarkMode] = useState(false);
+function Header({ page, onPageChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-white/60 bg-stone-50/82 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-stone-50/90 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/86">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8 lg:py-5">
         <a
           href="#hero"
-          onClick={(event) => scrollToSection(event, "#hero")}
-          className="flex min-w-0 items-center gap-2"
+          onClick={(event) => {
+            event.preventDefault();
+            onPageChange("home");
+            window.setTimeout(() => {
+              document
+                .querySelector("#hero")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }, 0);
+          }}
+          className="flex min-w-0 items-center gap-3"
           aria-label="상단으로 이동"
         >
           <img
             src="/logo.png"
             alt="사단법인 전남광주미래융합교육협회 로고"
-            className="h-9 w-9 rounded-xl object-contain ring-1 ring-slate-200/80 dark:bg-white dark:ring-white/20"
+            className="h-11 w-11 rounded-xl object-contain ring-1 ring-slate-200/80 dark:bg-white dark:ring-white/20 sm:h-12 sm:w-12"
           />
-          <span className="truncate text-sm font-black tracking-normal text-slate-950 sm:text-base dark:text-white">
+          <span className="truncate text-base font-black tracking-normal text-slate-950 sm:text-xl dark:text-white">
             전남광주미래융합교육협회 🚀
           </span>
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <NavLink key={item.href} item={item} />
+          {navItems.map((item, index) => (
+            <React.Fragment key={item.href}>
+              {index > 0 && (
+                <span className="h-4 w-px bg-slate-300 dark:bg-white/20" />
+              )}
+              <NavLink
+                item={item}
+                onNavigateHome={onPageChange}
+              />
+            </React.Fragment>
           ))}
+          <span className="h-4 w-px bg-slate-300 dark:bg-white/20" />
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen(false);
+              onPageChange("support");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className={`rounded-full px-3 py-2 text-lg font-black transition-all duration-300 lg:px-4 ${
+              page === "support"
+                ? "bg-blue-600 text-white"
+                : "text-slate-800 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200"
+            }`}
+          >
+            후원
+          </button>
         </div>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setDarkMode((value) => !value)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white/80 text-slate-800 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:text-blue-200"
-            aria-label={darkMode ? "라이트 모드로 변경" : "다크 모드로 변경"}
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
           <a
             href={instagramProfileUrl}
             target="_blank"
@@ -160,8 +209,24 @@ function Header() {
                 key={item.href}
                 item={item}
                 onClick={() => setMenuOpen(false)}
+                onNavigateHome={onPageChange}
               />
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                onPageChange("support");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`rounded-full px-3 py-2 text-left text-lg font-black transition-all duration-300 ${
+                page === "support"
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-800 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200"
+              }`}
+            >
+              후원
+            </button>
           </div>
         </div>
       )}
@@ -169,22 +234,22 @@ function Header() {
   );
 }
 
-function Hero() {
+function Hero({ onPageChange }) {
   return (
     <section
       id="hero"
       className="relative overflow-hidden bg-stone-50 dark:bg-slate-950"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.14),transparent_32%),linear-gradient(180deg,#fafaf9_0%,#fff7ed_100%)] dark:bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.22),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.16),transparent_32%),linear-gradient(180deg,#020617_0%,#111827_100%)]" />
-      <div className="mx-auto grid min-h-[calc(100vh-68px)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
+      <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-xs font-bold text-blue-700 shadow-sm dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-200">
             🎓 💻 🧠 ✨ 미래를 배우는 지역 교육 네트워크
           </div>
-          <h1 className="max-w-4xl text-3xl font-black leading-[1.12] tracking-normal text-slate-950 sm:text-4xl lg:text-6xl dark:text-white">
+          <h1 className="max-w-4xl text-3xl font-black leading-[1.16] tracking-normal text-slate-950 sm:text-4xl lg:text-5xl dark:text-white">
             미래융합교육의 중심,
             <span className="mt-2 block bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-500 bg-clip-text text-transparent">
-              전남과 광주에서 시작합니다
+              전남광주에서 시작합니다!
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-slate-300">
@@ -194,8 +259,12 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#about"
-              onClick={(event) => scrollToSection(event, "#about")}
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                onPageChange("about");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-4 text-sm font-black text-white shadow-glow transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
             >
               협회 소개 보기
@@ -214,7 +283,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
+        <div className="relative mx-auto w-full max-w-md lg:max-w-xl">
           <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/18 to-fuchsia-500/18 blur-2xl" />
           <div className="relative overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/76 p-5 shadow-soft backdrop-blur dark:border-white/10 dark:bg-white/10">
             <img
@@ -247,7 +316,7 @@ function Hero() {
                   </div>
                 ))}
               </div>
-              <p className="mt-4 rounded-2xl border border-blue-200 bg-blue-50/70 px-4 py-3 text-center text-sm font-black text-blue-800 dark:border-blue-300/20 dark:bg-blue-500/10 dark:text-blue-100">
+              <p className="mt-4 rounded-2xl border border-blue-200 bg-blue-50/70 px-3 py-3 text-center text-xs font-black text-blue-800 dark:border-blue-300/20 dark:bg-blue-500/10 dark:text-blue-100 sm:text-sm lg:whitespace-nowrap">
                 💫 셈틀지기 × 과나연 × 금융경제 × 방송영상, 함께 만드는 융합교육
               </p>
             </div>
@@ -330,6 +399,14 @@ function About() {
         </div>
       </div>
     </section>
+  );
+}
+
+function AboutPage() {
+  return (
+    <main className="bg-white dark:bg-slate-950">
+      <About />
+    </main>
   );
 }
 
@@ -427,6 +504,96 @@ function Notice() {
   );
 }
 
+function Partners() {
+  return (
+    <section id="partners" className="bg-stone-50 py-16 sm:py-20 dark:bg-slate-900">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm font-black text-blue-700 dark:text-blue-300">
+              NETWORK 🤝
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">
+              유관기관/단체
+            </h2>
+          </div>
+          <p className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            미래융합교육의 확산을 위해 함께 연결되는 기관과 단체입니다.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {partnerOrganizations.map((organization) => (
+            <a
+              key={organization.name}
+              href={organization.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative flex min-h-[190px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-soft dark:border-white/10 dark:bg-white/5"
+              aria-label={`${organization.name} 홈페이지 열기`}
+            >
+              <img
+                src={organization.logo}
+                alt={organization.name}
+                className="max-h-24 max-w-full object-contain transition-all duration-500 group-hover:scale-95 group-hover:opacity-35"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-white/0 opacity-0 transition-all duration-500 group-hover:bg-white/88 group-hover:opacity-100 dark:group-hover:bg-white/90">
+                <div className="translate-y-3 text-center transition-all duration-500 group-hover:translate-y-0">
+                  <p className="text-xl font-black text-slate-950">
+                    {organization.name}
+                  </p>
+                  <p className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-blue-700">
+                    바로가기
+                    <ArrowUpRight size={15} />
+                  </p>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SupportPage() {
+  return (
+    <main className="bg-stone-50 dark:bg-slate-950">
+      <section className="mx-auto min-h-[calc(100vh-88px)] max-w-5xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <p className="text-sm font-black text-blue-700 dark:text-blue-300">
+          SUPPORT 💙
+        </p>
+        <h1 className="mt-4 text-4xl font-black leading-tight text-slate-950 sm:text-5xl dark:text-white">
+          후원
+        </h1>
+        <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-white/5 sm:p-8">
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">
+            미래융합교육을 함께 응원해주세요
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
+            후원 안내 페이지입니다. 추후 계좌 정보, 후원 신청 방법, 기부금
+            활용 내역 등을 이곳에 정리할 수 있습니다.
+          </p>
+          <div className="mt-5 rounded-2xl border border-blue-100 bg-blue-50/70 p-5 dark:border-blue-300/20 dark:bg-blue-500/10">
+            <p className="text-lg font-black text-slate-950 dark:text-white">
+              2026년 기부금 모금액 및 활용실적
+            </p>
+            <p className="mt-2 text-sm font-bold text-slate-600 dark:text-slate-300">
+              준비중입니다.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="mt-8 rounded-full bg-slate-950 px-6 py-4 text-sm font-black text-white transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-100"
+          >
+            후원 안내 준비중 ✨
+          </button>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function Footer() {
   return (
     <footer className="bg-slate-950 px-4 py-10 text-slate-300 sm:px-6 lg:px-8">
@@ -443,7 +610,7 @@ function Footer() {
             </p>
           </div>
           <p className="mt-4 max-w-2xl text-sm leading-7">
-            대표자: 최명호 | 주소: [협회 주소] | 이메일: [이메일 주소]
+            대표자: 최명호 | 주소: 전남광주통합특별시 목포시 남악1로 52번가길 2-9, (옥암동) | 이메일: [이메일 주소]
           </p>
         </div>
         <p className="text-sm text-slate-400">
@@ -455,15 +622,23 @@ function Footer() {
 }
 
 export default function App() {
+  const [page, setPage] = useState("home");
+
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-slate-900 transition-colors duration-300 dark:bg-slate-950">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Programs />
-        <Notice />
-      </main>
+      <Header page={page} onPageChange={setPage} />
+      {page === "support" ? (
+        <SupportPage />
+      ) : page === "about" ? (
+        <AboutPage />
+      ) : (
+        <main>
+          <Hero onPageChange={setPage} />
+          <Programs />
+          <Notice />
+          <Partners />
+        </main>
+      )}
       <Footer />
     </div>
   );
