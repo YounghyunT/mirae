@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   ChevronRight,
@@ -39,6 +39,13 @@ const programs = [
 
 const instagramFeedUrl = "https://84aca62eefd54b8b955b151cff73cf51.elf.site";
 const instagramProfileUrl = "https://www.instagram.com/jg_mirae";
+
+const heroBanners = [
+  "/banner-1.jpg",
+  "/banner-2.jpg",
+  "/banner-3.jpg",
+  "/banner-4.jpg",
+];
 
 const researchGroups = [
   { name: "셈틀지기", emoji: "💻" },
@@ -268,28 +275,66 @@ function Header({ page, onPageChange }) {
 }
 
 function Hero({ onPageChange }) {
+  const [activeBanner, setActiveBanner] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveBanner((current) => (current + 1) % heroBanners.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <section
       id="hero"
       className="relative overflow-hidden bg-stone-50 dark:bg-slate-950"
     >
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.14),transparent_32%),linear-gradient(180deg,#fafaf9_0%,#fff7ed_100%)] dark:bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.22),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(168,85,247,0.16),transparent_32%),linear-gradient(180deg,#020617_0%,#111827_100%)]" />
-      <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
+      <div className="absolute inset-0 z-0 bg-stone-100">
+        {heroBanners.map((banner, index) => (
+          <img
+            key={banner}
+            src={banner}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1600ms] ${
+              activeBanner === index ? "opacity-90" : "opacity-0"
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-slate-950/8" />
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-50/68 via-stone-50/44 to-stone-50/16" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,250,249,0.04),rgba(250,250,249,0.34)),radial-gradient(circle_at_18%_12%,rgba(59,130,246,0.08),transparent_30%)]" />
+      </div>
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/70 bg-white/70 px-3 py-2 shadow-sm backdrop-blur">
+        {heroBanners.map((banner, index) => (
+          <button
+            key={banner}
+            type="button"
+            onClick={() => setActiveBanner(index)}
+            className={`h-2.5 rounded-full transition-all duration-300 ${
+              activeBanner === index
+                ? "w-8 bg-blue-700"
+                : "w-2.5 bg-slate-400/70 hover:bg-blue-500"
+            }`}
+            aria-label={`배너 ${index + 1}번 보기`}
+            aria-current={activeBanner === index ? "true" : undefined}
+          />
+        ))}
+      </div>
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-xs font-bold text-blue-700 shadow-sm dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-200">
             🎓 💻 🧠 ✨ 미래를 배우는 지역 교육 네트워크
           </div>
-          <h1 className="max-w-4xl text-3xl font-black leading-[1.16] tracking-normal text-slate-950 sm:text-4xl lg:text-5xl dark:text-white">
-            미래융합교육의 중심,
-            <span className="mt-2 block bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-500 bg-clip-text text-transparent">
+          <h1 className="max-w-4xl text-[2.05rem] font-black leading-[1.12] tracking-normal text-slate-950 [text-shadow:_0_4px_22px_rgb(255_255_255_/_0.98),_0_2px_8px_rgb(255_255_255_/_0.9),_0_1px_0_rgb(255_255_255_/_0.92)] sm:text-[2.7rem] lg:text-[3rem] xl:text-[3.18rem]">
+            <span className="block lg:whitespace-nowrap">
+              미래융합교육의 중심,
+            </span>
+            <span className="mt-2 block text-blue-800 [text-shadow:_0_4px_24px_rgb(255_255_255_/_0.98),_0_2px_8px_rgb(255_255_255_/_0.92),_0_1px_0_rgb(255_255_255_/_0.94)]">
               전남광주에서 시작합니다!
             </span>
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-slate-300">
-            사단법인 전남광주미래융합교육협회는 기술과 인문, 학교와
-            지역사회를 잇는 실천형 교육 활동으로 더 넓은 배움의 가능성을
-            만듭니다.
-          </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#"
@@ -322,7 +367,7 @@ function Hero({ onPageChange }) {
             <img
               src="/logo.png"
               alt="전남광주미래융합교육협회 로고"
-              className="mx-auto w-full max-w-sm rounded-2xl bg-white object-contain p-4"
+              className="mx-auto w-full max-w-md rounded-2xl bg-white object-contain p-2 sm:p-3"
             />
             <div className="mt-6">
               <div className="mb-3 flex items-center justify-center gap-2 text-xs font-black text-slate-500 dark:text-slate-300">
@@ -334,7 +379,7 @@ function Hero({ onPageChange }) {
                 {researchGroups.map((group, index) => (
                   <div
                     key={group.name}
-                    className="group relative overflow-hidden rounded-2xl bg-slate-950 px-2 py-4 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-glow dark:bg-white dark:text-slate-950"
+                    className="group relative overflow-hidden rounded-2xl bg-black/90 px-2 py-4 text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-black/94 hover:shadow-glow dark:bg-black/90 dark:text-white"
                   >
                     <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent opacity-80" />
                     <span className="mb-2 block text-2xl transition-transform duration-300 group-hover:scale-110">
@@ -472,75 +517,84 @@ function OrganizationPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-          <aside className="rounded-2xl border border-slate-200 bg-stone-50 p-6">
-            <p className="text-lg font-black text-slate-950">고문단</p>
-            <div className="mt-4 h-px bg-slate-200" />
-            <ul className="mt-4 space-y-2">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-md rounded-2xl border border-blue-200 bg-white p-2 shadow-soft">
+            <div className="rounded-xl bg-blue-700 px-5 py-3 text-center text-lg font-black text-white">
+              이사장
+            </div>
+            <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
+              최명호
+            </div>
+          </div>
+
+          <div className="mx-auto h-10 w-px bg-slate-300" />
+
+          <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+            <div className="rounded-xl bg-slate-700 px-5 py-3 text-center text-lg font-black text-white">
+              감사
+            </div>
+            <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
+              윤진영
+            </div>
+          </div>
+
+          <div className="relative mt-12">
+            <div className="absolute left-1/2 top-[-48px] hidden h-12 w-px -translate-x-1/2 bg-slate-300 lg:block" />
+            <div className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-slate-300 lg:block" />
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {departments.map((department) => (
+                <article
+                  key={department.name}
+                  className="relative rounded-2xl border border-slate-200 bg-white p-2 shadow-soft"
+                >
+                  <div className="absolute left-1/2 top-[-16px] hidden h-4 w-px -translate-x-1/2 bg-slate-300 lg:block" />
+                  <div className="rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 px-4 py-3 text-center text-xl font-black text-white">
+                    {department.name}
+                  </div>
+                  <ul className="space-y-3 px-4 py-5">
+                    {department.roles.map((role) => (
+                      <li
+                        key={role}
+                        className="text-center text-sm font-bold leading-6 text-slate-700"
+                      >
+                        {role}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-8 rounded-2xl border border-slate-200 bg-stone-50 px-5 py-4 text-sm leading-7 text-slate-600">
+            조직도는 협회 운영 상황에 따라 변경될 수 있으며, 각 부서는
+            미래융합교육 사업의 기획, 홍보, 총무, 회계 운영을 담당합니다.
+          </p>
+
+          <div className="mt-12 rounded-2xl border border-slate-200 bg-stone-50 p-6 sm:p-8">
+            <div className="flex flex-col gap-2 border-b border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-sm font-black tracking-[0.16em] text-blue-700">
+                  ADVISORY GROUP
+                </p>
+                <h2 className="mt-2 text-2xl font-black text-slate-950">
+                  고문단
+                </h2>
+              </div>
+              <p className="text-sm font-bold text-slate-500">
+                협회 운영과 교육 활동에 대한 자문을 담당합니다.
+              </p>
+            </div>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {advisors.map((advisor) => (
                 <li
                   key={advisor}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-4 text-sm font-bold text-slate-700 shadow-sm"
                 >
                   {advisor}
                 </li>
               ))}
             </ul>
-          </aside>
-
-          <div>
-            <div className="mx-auto max-w-md rounded-2xl border border-blue-200 bg-white p-2 shadow-soft">
-              <div className="rounded-xl bg-blue-700 px-5 py-3 text-center text-lg font-black text-white">
-                이사장
-              </div>
-              <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
-                최명호
-              </div>
-            </div>
-
-            <div className="mx-auto h-10 w-px bg-slate-300" />
-
-            <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
-              <div className="rounded-xl bg-slate-700 px-5 py-3 text-center text-lg font-black text-white">
-                감사
-              </div>
-              <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
-                윤진영
-              </div>
-            </div>
-
-            <div className="relative mt-12">
-              <div className="absolute left-1/2 top-[-48px] hidden h-12 w-px -translate-x-1/2 bg-slate-300 lg:block" />
-              <div className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-slate-300 lg:block" />
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {departments.map((department) => (
-                  <article
-                    key={department.name}
-                    className="relative rounded-2xl border border-slate-200 bg-white p-2 shadow-soft"
-                  >
-                    <div className="absolute left-1/2 top-[-16px] hidden h-4 w-px -translate-x-1/2 bg-slate-300 lg:block" />
-                    <div className="rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 px-4 py-3 text-center text-xl font-black text-white">
-                      {department.name}
-                    </div>
-                    <ul className="space-y-3 px-4 py-5">
-                      {department.roles.map((role) => (
-                        <li
-                          key={role}
-                          className="text-center text-sm font-bold leading-6 text-slate-700"
-                        >
-                          {role}
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <p className="mt-8 rounded-2xl border border-slate-200 bg-stone-50 px-5 py-4 text-sm leading-7 text-slate-600">
-              조직도는 협회 운영 상황에 따라 변경될 수 있으며, 각 부서는
-              미래융합교육 사업의 기획, 홍보, 총무, 회계 운영을 담당합니다.
-            </p>
           </div>
         </div>
       </section>
