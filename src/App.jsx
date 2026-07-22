@@ -1,41 +1,19 @@
 import React, { useState } from "react";
 import {
   ArrowUpRight,
-  CalendarDays,
   ChevronRight,
   Instagram,
-  Mail,
   Menu,
-  Target,
   X,
 } from "lucide-react";
 
 const navItems = [
   { label: "소개", page: "about" },
+  { label: "조직도", page: "organization" },
   { label: "주요사업", href: "#programs" },
   { label: "공지사항", href: "#notice" },
-  { label: "유관기관/단체", href: "#partners" },
-];
-
-const aboutItems = [
-  {
-    icon: Mail,
-    emoji: "✉️",
-    title: "인사말",
-    text: "전남과 광주의 교육 현장에 미래 기술과 따뜻한 배움을 연결합니다. 협회는 학생, 교사, 지역사회가 함께 성장하는 교육 생태계를 만들기 위해 현장 가까이에서 움직입니다.",
-  },
-  {
-    icon: Target,
-    emoji: "🎯",
-    title: "설립목적 및 미션",
-    text: "AI, 디지털, 창의 융합 교육을 통해 누구나 미래 역량을 키울 수 있는 기반을 만듭니다. 지역 교육 격차를 줄이고 실천형 미래 교육 모델을 확산하는 것이 우리의 핵심 미션입니다.",
-  },
-  {
-    icon: CalendarDays,
-    emoji: "📅",
-    title: "주요 연혁",
-    text: "지역 교육기관, 전문가, 커뮤니티와 함께 실천형 미래융합교육 활동을 확장하고 있습니다. 교육 프로그램, 콘텐츠 개발, 협력 프로젝트를 단계적으로 축적해 나가고 있습니다.",
-  },
+  { label: "참여연구회", page: "research" },
+  { label: "유관기관", href: "#partners" },
 ];
 
 const programs = [
@@ -87,6 +65,61 @@ const partnerOrganizations = [
   },
 ];
 
+const advisors = [
+  "박성영 교장선생님",
+  "박상희 교감선생님",
+  "오완수 장학사님",
+  "서화형 장학사님",
+  "김민수 장학사님",
+  "신광길 장학사님",
+];
+
+const departments = [
+  {
+    name: "기획부",
+    roles: ["초등팀장 : 명정은(등기이사)", "중등팀장 : 김성영(미등기이사)", "김동욱(회원)"],
+  },
+  {
+    name: "홍보부",
+    roles: ["팀장 : 박재근(미등기이사)", "팀장 : 김영현(미등기이사)", "조현기(회원)"],
+  },
+  {
+    name: "총무부",
+    roles: ["초등팀장 : 정지훈(등기이사)", "중등팀장 : 양진석(미등기이사)", "나정호(회원)"],
+  },
+  {
+    name: "회계부",
+    roles: ["초등팀장 : 강민희(등기이사)", "중등팀장 : 김한도(등기이사)", "임정한(회원)"],
+  },
+];
+
+const researchClubSections = [
+  {
+    name: "셈틀지기",
+    field: "AI·코딩·디지털 창의교육",
+    summary: "컴퓨팅 사고력과 문제해결력을 중심으로 미래형 수업 모델을 연구합니다.",
+    accent: "from-blue-700 to-cyan-500",
+  },
+  {
+    name: "과나연",
+    field: "과학·기술·융합탐구",
+    summary: "과학기술 기반 탐구 활동과 지역 연계 융합교육 콘텐츠를 기획합니다.",
+    accent: "from-emerald-700 to-lime-500",
+  },
+  {
+    name: "금융경제",
+    field: "경제이해·금융문해력 교육",
+    summary: "생활 속 경제와 금융 의사결정 역량을 키우는 교육 모델을 만듭니다.",
+    accent: "from-amber-600 to-yellow-400",
+  },
+  {
+    name: "방송영상",
+    field: "미디어·콘텐츠·영상교육",
+    summary: "디지털 미디어 표현력과 영상 제작 역량을 교육 활동과 연결합니다.",
+    accent: "from-fuchsia-700 to-rose-500",
+  },
+];
+
 function scrollToSection(event, href) {
   event.preventDefault();
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -113,7 +146,7 @@ function NavLink({ item, onClick, onNavigateHome }) {
         }, 0);
         onClick?.();
       }}
-      className="rounded-full px-3 py-2 text-lg font-black text-slate-800 transition-all duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200 lg:px-4"
+      className="rounded-full px-2.5 py-2 text-base font-black text-slate-800 transition-all duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200 xl:text-lg"
     >
       {item.label}
     </a>
@@ -141,20 +174,20 @@ function Header({ page, onPageChange }) {
           aria-label="상단으로 이동"
         >
           <img
-            src="/logo.png"
+            src="/header-logo.png"
             alt="사단법인 전남광주미래융합교육협회 로고"
-            className="h-11 w-11 rounded-xl object-contain ring-1 ring-slate-200/80 dark:bg-white dark:ring-white/20 sm:h-12 sm:w-12"
+            className="h-12 w-12 rounded-xl bg-white object-contain p-1 ring-1 ring-slate-200/80 dark:bg-white dark:ring-white/20 sm:h-14 sm:w-14"
           />
-          <span className="truncate text-base font-black tracking-normal text-slate-950 sm:text-xl dark:text-white">
-            전남광주미래융합교육협회 🚀
+          <span className="truncate text-lg font-black tracking-normal text-slate-950 sm:text-2xl dark:text-white">
+            전남광주미래융합교육협회
           </span>
         </a>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 md:flex">
           {navItems.map((item, index) => (
             <React.Fragment key={item.href}>
               {index > 0 && (
-                <span className="h-4 w-px bg-slate-300 dark:bg-white/20" />
+                <span className="h-4 w-px bg-slate-300/80 dark:bg-white/20" />
               )}
               <NavLink
                 item={item}
@@ -162,7 +195,7 @@ function Header({ page, onPageChange }) {
               />
             </React.Fragment>
           ))}
-          <span className="h-4 w-px bg-slate-300 dark:bg-white/20" />
+          <span className="h-4 w-px bg-slate-300/80 dark:bg-white/20" />
           <button
             type="button"
             onClick={() => {
@@ -170,7 +203,7 @@ function Header({ page, onPageChange }) {
               onPageChange("support");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className={`rounded-full px-3 py-2 text-lg font-black transition-all duration-300 lg:px-4 ${
+            className={`rounded-full px-2.5 py-2 text-base font-black transition-all duration-300 xl:text-lg ${
               page === "support"
                 ? "bg-blue-600 text-white"
                 : "text-slate-800 hover:bg-blue-500/10 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-200"
@@ -343,69 +376,244 @@ function SectionTitle({ eyebrow, title, desc }) {
   );
 }
 
-function About() {
-  const [activeAbout, setActiveAbout] = useState(0);
-  const ActiveIcon = aboutItems[activeAbout].icon;
-
+function ChairmanGreetingPage() {
   return (
-    <section id="about" className="bg-white py-16 sm:py-20 dark:bg-slate-950">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          eyebrow="ABOUT ✨"
-          title="미래융합교육의 중심"
-          desc="지역의 교육 자원과 미래 기술을 연결해 누구나 성장할 수 있는 배움의 생태계를 조성합니다."
-        />
-        <div className="mx-auto max-w-4xl">
-          <div className="grid grid-cols-3 gap-2 rounded-3xl border border-slate-200 bg-stone-50 p-2 shadow-sm dark:border-white/10 dark:bg-white/5">
-            {aboutItems.map(({ emoji, title }, index) => (
-              <button
-                key={title}
-                type="button"
-                onClick={() => setActiveAbout(index)}
-                className={`min-h-16 rounded-2xl px-2 py-3 text-center text-xs font-black transition-all duration-300 sm:text-sm ${
-                  activeAbout === index
-                    ? "bg-slate-950 text-white shadow-glow dark:bg-white dark:text-slate-950"
-                    : "text-slate-600 hover:bg-white hover:text-blue-700 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-blue-200"
-                }`}
-                aria-pressed={activeAbout === index}
-              >
-                <span className="mb-1 block text-xl sm:text-2xl">{emoji}</span>
-                <span className="block leading-tight">{title}</span>
-              </button>
-            ))}
-          </div>
+    <main className="bg-white">
+      <section className="border-b border-slate-200 bg-stone-50">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <p className="text-sm font-black tracking-[0.18em] text-blue-700">
+            GREETING
+          </p>
+          <h1 className="mt-4 text-3xl font-black text-slate-950 sm:text-5xl">
+            이사장 인사말
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
+            사단법인 전남광주미래융합교육협회 홈페이지를 방문해주신
+            여러분께 깊이 감사드립니다.
+          </p>
+        </div>
+      </section>
 
-          <article className="mt-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-soft transition-all duration-300 dark:border-white/10 dark:bg-white/5 sm:p-8">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-sm font-black text-blue-700 dark:text-blue-300">
-                  0{activeAbout + 1}
-                </p>
-                <h3 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
-                  {aboutItems[activeAbout].emoji} {aboutItems[activeAbout].title}
-                </h3>
-              </div>
-              <span
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-blue-500/10 text-blue-700 dark:text-blue-200"
-                aria-hidden="true"
-              >
-                <ActiveIcon size={22} />
-              </span>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.45fr] lg:items-start">
+          <aside className="rounded-2xl border border-slate-200 bg-stone-50 p-6">
+            <div className="rounded-xl bg-white p-5 shadow-sm">
+              <img
+                src="/header-logo.png"
+                alt="전남광주미래융합교육협회 심볼"
+                className="mx-auto h-28 w-28 object-contain"
+              />
             </div>
-            <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300">
-              {aboutItems[activeAbout].text}
-            </p>
+            <div className="mt-6 border-t border-slate-200 pt-6">
+              <p className="text-sm font-bold text-slate-500">
+                사단법인 전남광주미래융합교육협회
+              </p>
+              <p className="mt-2 text-2xl font-black text-slate-950">
+                이사장 최명호
+              </p>
+            </div>
+          </aside>
+
+          <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8 lg:p-10">
+            <h2 className="text-2xl font-black leading-snug text-slate-950 sm:text-3xl">
+              미래융합교육의 가치가 지역의 배움으로 이어지도록
+              함께하겠습니다.
+            </h2>
+            <div className="mt-8 space-y-5 text-base leading-8 text-slate-700">
+              <p>안녕하십니까.</p>
+              <p>
+                사단법인 전남광주미래융합교육협회는 급변하는 미래사회에
+                필요한 디지털 역량과 창의적 문제해결력을 지역 교육 현장에
+                안정적으로 확산하기 위해 설립되었습니다.
+              </p>
+              <p>
+                우리 협회는 학생, 교사, 학부모, 지역사회가 함께 성장할 수
+                있는 교육 기반을 마련하고, 인공지능·디지털·과학기술·경제
+                교육 등 다양한 영역이 유기적으로 연결되는 융합교육 생태계를
+                만들어가고자 합니다.
+              </p>
+              <p>
+                앞으로도 현장의 목소리를 소중히 듣고, 공공성과 전문성을
+                바탕으로 지역사회에 신뢰받는 교육 협회가 되겠습니다. 많은
+                관심과 성원을 부탁드립니다.
+              </p>
+            </div>
+            <div className="mt-10 flex flex-col gap-2 border-t border-slate-200 pt-6 text-right">
+              <p className="text-sm font-bold text-slate-500">
+                사단법인 전남광주미래융합교육협회
+              </p>
+              <p className="text-xl font-black text-slate-950">
+                이사장 최명호
+              </p>
+            </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
 
-function AboutPage() {
+function OrganizationPage() {
   return (
-    <main className="bg-white dark:bg-slate-950">
-      <About />
+    <main className="bg-white">
+      <section className="border-b border-slate-200 bg-stone-50">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <p className="text-sm font-black tracking-[0.18em] text-blue-700">
+            ORGANIZATION
+          </p>
+          <h1 className="mt-4 text-3xl font-black text-slate-950 sm:text-5xl">
+            조직도
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
+            사단법인 전남광주미래융합교육협회의 운영 체계와 부서별
+            담당 구성을 안내합니다.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
+          <aside className="rounded-2xl border border-slate-200 bg-stone-50 p-6">
+            <p className="text-lg font-black text-slate-950">고문단</p>
+            <div className="mt-4 h-px bg-slate-200" />
+            <ul className="mt-4 space-y-2">
+              {advisors.map((advisor) => (
+                <li
+                  key={advisor}
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700"
+                >
+                  {advisor}
+                </li>
+              ))}
+            </ul>
+          </aside>
+
+          <div>
+            <div className="mx-auto max-w-md rounded-2xl border border-blue-200 bg-white p-2 shadow-soft">
+              <div className="rounded-xl bg-blue-700 px-5 py-3 text-center text-lg font-black text-white">
+                이사장
+              </div>
+              <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
+                최명호
+              </div>
+            </div>
+
+            <div className="mx-auto h-10 w-px bg-slate-300" />
+
+            <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+              <div className="rounded-xl bg-slate-700 px-5 py-3 text-center text-lg font-black text-white">
+                감사
+              </div>
+              <div className="px-5 py-5 text-center text-3xl font-black text-slate-950">
+                윤진영
+              </div>
+            </div>
+
+            <div className="relative mt-12">
+              <div className="absolute left-1/2 top-[-48px] hidden h-12 w-px -translate-x-1/2 bg-slate-300 lg:block" />
+              <div className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-slate-300 lg:block" />
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {departments.map((department) => (
+                  <article
+                    key={department.name}
+                    className="relative rounded-2xl border border-slate-200 bg-white p-2 shadow-soft"
+                  >
+                    <div className="absolute left-1/2 top-[-16px] hidden h-4 w-px -translate-x-1/2 bg-slate-300 lg:block" />
+                    <div className="rounded-xl bg-gradient-to-r from-blue-700 to-sky-600 px-4 py-3 text-center text-xl font-black text-white">
+                      {department.name}
+                    </div>
+                    <ul className="space-y-3 px-4 py-5">
+                      {department.roles.map((role) => (
+                        <li
+                          key={role}
+                          className="text-center text-sm font-bold leading-6 text-slate-700"
+                        >
+                          {role}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <p className="mt-8 rounded-2xl border border-slate-200 bg-stone-50 px-5 py-4 text-sm leading-7 text-slate-600">
+              조직도는 협회 운영 상황에 따라 변경될 수 있으며, 각 부서는
+              미래융합교육 사업의 기획, 홍보, 총무, 회계 운영을 담당합니다.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function ResearchClubsPage() {
+  return (
+    <main className="bg-white">
+      <section className="border-b border-slate-200 bg-stone-50">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <p className="text-sm font-black tracking-[0.18em] text-blue-700">
+            RESEARCH GROUPS
+          </p>
+          <h1 className="mt-4 text-3xl font-black text-slate-950 sm:text-5xl">
+            참여연구회
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
+            네 개 연구회가 각자의 전문 영역을 바탕으로 교육 프로그램,
+            콘텐츠, 현장 활동을 함께 만들어갑니다.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="space-y-8">
+          {researchClubSections.map((club, index) => (
+            <article
+              key={club.name}
+              className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft"
+            >
+              <div className={`h-2 bg-gradient-to-r ${club.accent}`} />
+              <div className="grid gap-0 lg:grid-cols-[0.95fr_1.35fr]">
+                <div className="border-b border-slate-200 bg-stone-50 p-6 lg:border-b-0 lg:border-r sm:p-8">
+                  <p className="text-sm font-black text-slate-400">
+                    연구회 0{index + 1}
+                  </p>
+                  <h2 className="mt-3 text-3xl font-black text-slate-950">
+                    {club.name}
+                  </h2>
+                  <p className="mt-3 text-sm font-black text-blue-700">
+                    {club.field}
+                  </p>
+                  <p className="mt-5 text-base leading-8 text-slate-600">
+                    {club.summary}
+                  </p>
+                </div>
+
+                <div className="space-y-5 p-6 sm:p-8">
+                  {[1, 2].map((itemNumber) => (
+                    <div
+                      key={itemNumber}
+                      className="grid gap-4 lg:grid-cols-2"
+                    >
+                      <div className="flex min-h-56 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-8 text-center">
+                        <p className="text-lg font-black text-slate-950">
+                          주요사업 {itemNumber}
+                        </p>
+                      </div>
+                      <div className="flex min-h-56 items-center justify-center rounded-xl border border-dashed border-slate-300 bg-stone-50 px-5 py-8 text-center">
+                        <p className="text-lg font-black text-slate-500">
+                          활동사진 {itemNumber}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
@@ -601,9 +809,9 @@ function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <img
-              src="/logo.png"
+              src="/header-logo.png"
               alt=""
-              className="h-10 w-10 rounded-xl bg-white object-contain p-1"
+              className="h-10 w-10 rounded-xl bg-white object-contain p-1.5"
             />
             <p className="text-base font-black text-white">
               사단법인 전남광주미래융합교육협회
@@ -630,7 +838,11 @@ export default function App() {
       {page === "support" ? (
         <SupportPage />
       ) : page === "about" ? (
-        <AboutPage />
+        <ChairmanGreetingPage />
+      ) : page === "organization" ? (
+        <OrganizationPage />
+      ) : page === "research" ? (
+        <ResearchClubsPage />
       ) : (
         <main>
           <Hero onPageChange={setPage} />
