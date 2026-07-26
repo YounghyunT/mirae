@@ -21,9 +21,6 @@ const programs = [
     emoji: "🤖",
     title: "4차 산업 핵심 기술 교육",
     desc: "AI, 코딩, 로봇, 데이터 리터러시를 현장 중심 커리큘럼으로 제공합니다.",
-    extraLinkLabel: "헥사보드 센서패키지 (로보몰) 🛒",
-    extraHref:
-      "https://robomall.co.kr/product/detail.html?product_no=26296&cate_no=670&display_group=1",
   },
   {
     emoji: "💡",
@@ -433,8 +430,8 @@ function ChairmanGreetingPage() {
             이사장 인사말
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
-            사단법인 전남광주미래융합교육협회 홈페이지를 방문해주신
-            여러분께 깊이 감사드립니다.
+            사단법인 광주전남미래융합교육협회 홈페이지를 찾아주신
+            여러분께 진심으로 감사드립니다.
           </p>
         </div>
       </section>
@@ -465,23 +462,31 @@ function ChairmanGreetingPage() {
               함께하겠습니다.
             </h2>
             <div className="mt-8 space-y-5 text-base leading-8 text-slate-700">
-              <p>안녕하십니까.</p>
               <p>
-                사단법인 전남광주미래융합교육협회는 급변하는 미래사회에
-                필요한 디지털 역량과 창의적 문제해결력을 지역 교육 현장에
-                안정적으로 확산하기 위해 설립되었습니다.
+                사단법인 광주전남미래융합교육협회 홈페이지를 찾아주신
+                여러분께 진심으로 감사드립니다.
               </p>
               <p>
-                우리 협회는 학생, 교사, 학부모, 지역사회가 함께 성장할 수
-                있는 교육 기반을 마련하고, 인공지능·디지털·과학기술·경제
-                교육 등 다양한 영역이 유기적으로 연결되는 융합교육 생태계를
-                만들어가고자 합니다.
+                저희 협회는 급변하는 미래사회에 필요한 디지털 역량과 창의적
+                문제해결력을 지역 교육 현장에 안정적으로 확산하기 위해
+                설립되었습니다. 또한 학생, 교사, 학부모, 지역사회가 함께
+                성장할 수 있는 교육 기반을 마련하고,
+                인공지능·디지털·과학기술·경제 교육 등 다양한 영역이
+                유기적으로 연결되는 융합교육 생태계를 만들어가고자 합니다.
+              </p>
+              <p>
+                저희 협회는 서로 다른 교과와 다양한 학교급에서 교육에 힘써
+                온 선생님들이 뜻을 모아 출범한 교사 중심의 단체입니다. 교육의
+                현장에서 쌓아 온 경험과 전문성을 바탕으로, 광주와 전남의
+                교육이 서로 연결되고 함께 성장할 수 있는 새로운 길을
+                열어가겠습니다.
               </p>
               <p>
                 앞으로도 현장의 목소리를 소중히 듣고, 공공성과 전문성을
-                바탕으로 지역사회에 신뢰받는 교육 협회가 되겠습니다. 많은
+                바탕으로 지역사회에 신뢰받는 교육 법인이 되겠습니다. 많은
                 관심과 성원을 부탁드립니다.
               </p>
+              <p>감사합니다.</p>
             </div>
             <div className="mt-10 flex flex-col gap-2 border-t border-slate-200 pt-6 text-right">
               <p className="text-sm font-bold text-slate-500">
@@ -705,17 +710,6 @@ function Programs() {
                   상세 보기 (노션) ✨
                   <ArrowUpRight size={16} />
                 </a>
-                {program.extraHref && (
-                  <a
-                    href={program.extraHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-gradient-to-r from-lime-100 via-emerald-100 to-teal-100 px-5 py-3 text-sm font-black text-emerald-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-300 hover:from-lime-200 hover:via-emerald-200 hover:to-teal-200 hover:shadow-glow dark:border-emerald-300/30 dark:from-lime-300/20 dark:via-emerald-300/20 dark:to-teal-300/20 dark:text-emerald-100"
-                  >
-                    {program.extraLinkLabel}
-                    <ArrowUpRight size={16} />
-                  </a>
-                )}
               </div>
             </article>
           ))}
@@ -872,7 +866,7 @@ function Footer() {
             </p>
           </div>
           <p className="mt-4 max-w-2xl text-sm leading-7">
-            대표자: 최명호 | 주소: 전남광주통합특별시 목포시 남악1로 52번가길 2-9, (옥암동) | 이메일: [이메일 주소]
+            대표자: 최명호 | 주소: 전남광주통합특별시 목포시 남악1로 52번가길 2-9, (옥암동) | 이메일: choi-m-h@hanmail.net
           </p>
         </div>
         <p className="text-sm text-slate-400">
