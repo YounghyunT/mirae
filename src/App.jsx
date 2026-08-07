@@ -430,7 +430,7 @@ function ChairmanGreetingPage() {
             이사장 인사말
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">
-            사단법인 광주전남미래융합교육협회 홈페이지를 찾아주신
+            사단법인 전남광주미래융합교육협회 홈페이지를 찾아주신
             여러분께 진심으로 감사드립니다.
           </p>
         </div>
@@ -463,7 +463,7 @@ function ChairmanGreetingPage() {
             </h2>
             <div className="mt-8 space-y-5 text-base leading-8 text-slate-700">
               <p>
-                사단법인 광주전남미래융합교육협회 홈페이지를 찾아주신
+                사단법인 전남광주미래융합교육협회 홈페이지를 찾아주신
                 여러분께 진심으로 감사드립니다.
               </p>
               <p>
@@ -827,9 +827,20 @@ function SupportPage() {
             미래융합교육을 함께 응원해주세요
           </h2>
           <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
-            후원 안내 페이지입니다. 추후 계좌 정보, 후원 신청 방법, 기부금
-            활용 내역 등을 이곳에 정리할 수 있습니다.
+            후원 안내 페이지입니다. 전남광주 미래융합교육 활동을 위한
+            소중한 후원은 지역 교육 현장의 성장으로 이어집니다.
           </p>
+          <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50/80 p-5 dark:border-emerald-300/20 dark:bg-emerald-500/10">
+            <p className="text-sm font-black tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
+              DONATION ACCOUNT
+            </p>
+            <p className="mt-3 text-xl font-black text-slate-950 dark:text-white">
+              농협은행 301-0389-7923-91
+            </p>
+            <p className="mt-2 text-sm font-bold text-slate-600 dark:text-slate-300">
+              예금주: 사단법인 전남광주미래융합교육협회
+            </p>
+          </div>
           <div className="mt-5 rounded-2xl border border-blue-100 bg-blue-50/70 p-5 dark:border-blue-300/20 dark:bg-blue-500/10">
             <p className="text-lg font-black text-slate-950 dark:text-white">
               2026년 기부금 모금액 및 활용실적
@@ -866,7 +877,7 @@ function Footer() {
             </p>
           </div>
           <p className="mt-4 max-w-2xl text-sm leading-7">
-            대표자: 최명호 | 주소: 전남광주통합특별시 목포시 남악1로 52번가길 2-9, (옥암동) | 이메일: choi-m-h@hanmail.net
+            대표자: 최명호 | 주소: 전남광주통합특별시 목포시 영산로59번길 15, 2층(무안동) | 이메일: choi-m-h@hanmail.net
           </p>
         </div>
         <p className="text-sm text-slate-400">
