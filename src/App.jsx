@@ -69,16 +69,6 @@ const partnerOrganizations = [
   },
 ];
 
-const advisors = [
-  "박성영 교장선생님",
-  "박상희 교감선생님",
-  "오완수 장학사님",
-  "서화형 장학사님",
-  "김민수 장학사님",
-  "김상훈 장학사님",
-  "신광길 장학사님",
-];
-
 const departments = [
   {
     name: "기획부",
@@ -577,31 +567,6 @@ function OrganizationPage() {
             미래융합교육 사업의 기획, 홍보, 총무, 회계 운영을 담당합니다.
           </p>
 
-          <div className="mt-12 rounded-2xl border border-slate-200 bg-stone-50 p-6 sm:p-8">
-            <div className="flex flex-col gap-2 border-b border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm font-black tracking-[0.16em] text-blue-700">
-                  ADVISORY GROUP
-                </p>
-                <h2 className="mt-2 text-2xl font-black text-slate-950">
-                  고문단
-                </h2>
-              </div>
-              <p className="text-sm font-bold text-slate-500">
-                협회 운영과 교육 활동에 대한 자문을 담당합니다.
-              </p>
-            </div>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {advisors.map((advisor) => (
-                <li
-                  key={advisor}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-4 text-sm font-bold text-slate-700 shadow-sm"
-                >
-                  {advisor}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
     </main>
