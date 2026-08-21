@@ -72,19 +72,19 @@ const partnerOrganizations = [
 const departments = [
   {
     name: "기획부",
-    roles: ["초등팀장 : 명정은", "중등팀장 : 김성영", "김동욱"],
+    roles: ["명정은", "김성영", "김동욱"],
   },
   {
     name: "홍보부",
-    roles: ["팀장 : 박재근", "팀장 : 김영현", "조현기"],
+    roles: ["박재근", "김영현", "조현기"],
   },
   {
     name: "총무부",
-    roles: ["초등팀장 : 정지훈", "중등팀장 : 양진석", "나정호"],
+    roles: ["정지훈", "양진석", "나정호"],
   },
   {
     name: "회계부",
-    roles: ["초등팀장 : 강민희", "중등팀장 : 김한도", "임정한"],
+    roles: ["강민희", "김한도", "임정한"],
   },
 ];
 
@@ -551,7 +551,7 @@ function OrganizationPage() {
                     {department.roles.map((role) => (
                       <li
                         key={role}
-                        className="text-center text-sm font-bold leading-6 text-slate-700"
+                        className="text-center text-base font-bold leading-7 text-slate-700"
                       >
                         {role}
                       </li>
