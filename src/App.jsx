@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   ArrowUpRight,
+  ChevronLeft,
   ChevronRight,
   Instagram,
   Menu,
@@ -43,6 +44,20 @@ const heroBanners = [
   "/banner-3.jpg",
   "/banner-4.jpg",
 ];
+
+const activityGallery = {
+  title: "2026. 미래 과학자 키움 프로젝트",
+  cover: "/gallery/future-scientist/future-scientist-01.jpg",
+  images: [
+    "/gallery/future-scientist/future-scientist-01.jpg",
+    "/gallery/future-scientist/future-scientist-02.jpg",
+    "/gallery/future-scientist/future-scientist-03.jpg",
+    "/gallery/future-scientist/future-scientist-04.jpg",
+    "/gallery/future-scientist/future-scientist-05.jpg",
+    "/gallery/future-scientist/future-scientist-06.jpg",
+    "/gallery/future-scientist/future-scientist-07.jpg",
+  ],
+};
 
 const researchGroups = [
   { name: "셈틀지기", emoji: "💻" },
@@ -685,6 +700,172 @@ function Programs() {
   );
 }
 
+function ActivityGallery() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeImage = activityGallery.images[activeIndex];
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+      if (event.key === "ArrowLeft") {
+        setActiveIndex((current) =>
+          current === 0 ? activityGallery.images.length - 1 : current - 1,
+        );
+      }
+      if (event.key === "ArrowRight") {
+        setActiveIndex((current) => (current + 1) % activityGallery.images.length);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
+  const showPrevious = () => {
+    setActiveIndex((current) =>
+      current === 0 ? activityGallery.images.length - 1 : current - 1,
+    );
+  };
+
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % activityGallery.images.length);
+  };
+
+  return (
+    <section className="bg-white py-16 sm:py-20 dark:bg-slate-950">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionTitle
+          eyebrow="GALLERY 📷"
+          title="활동 갤러리"
+          desc="대표 사진을 눌러 전남광주미래융합교육협회의 주요 활동 장면을 확인해보세요."
+        />
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <button
+            type="button"
+            onClick={() => {
+              setActiveIndex(0);
+              setIsOpen(true);
+            }}
+            className="group overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl"
+            aria-label={`${activityGallery.title} 갤러리 열기`}
+          >
+            <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+              <img
+                src={activityGallery.cover}
+                alt={activityGallery.title}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <span className="absolute bottom-3 right-3 rounded-md bg-slate-950/80 px-2.5 py-1.5 text-xs font-bold text-white backdrop-blur-sm">
+                사진 {activityGallery.images.length}장
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-3 px-4 py-4 sm:px-5">
+              <h3 className="text-base font-black leading-snug text-slate-950 sm:text-lg">
+                {activityGallery.title}
+              </h3>
+              <ArrowUpRight
+                size={19}
+                className="flex-none text-blue-700 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[90] bg-slate-950/95 px-3 py-4 backdrop-blur-md sm:px-6 sm:py-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activityGallery.title} 사진 갤러리`}
+        >
+          <div className="mx-auto flex h-full max-w-7xl flex-col">
+            <div className="flex min-h-16 items-center justify-between gap-4 rounded-xl border border-white/10 bg-slate-950 px-4 py-3 shadow-xl sm:px-5">
+              <div>
+                <p className="text-xs font-black tracking-[0.16em] text-blue-200">
+                  ACTIVITY GALLERY
+                </p>
+                <h3 className="mt-1 text-base font-black text-white sm:text-xl">
+                  {activityGallery.title}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="inline-flex h-12 w-12 flex-none items-center justify-center rounded-full border-2 border-white bg-white text-slate-950 shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-blue-300/50"
+                aria-label="갤러리 닫기"
+              >
+                <X size={26} strokeWidth={2.5} />
+              </button>
+            </div>
+
+            <div className="relative mt-4 flex min-h-0 flex-1 items-center justify-center rounded-3xl bg-black/35 p-2 sm:p-4">
+              <img
+                src={activeImage}
+                alt={`${activityGallery.title} 사진 ${activeIndex + 1}`}
+                className="max-h-full max-w-full rounded-2xl object-contain shadow-2xl"
+              />
+              <button
+                type="button"
+                onClick={showPrevious}
+                className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-slate-950 shadow-lg transition-all duration-300 hover:bg-white sm:left-6"
+                aria-label="이전 사진"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-slate-950 shadow-lg transition-all duration-300 hover:bg-white sm:right-6"
+                aria-label="다음 사진"
+              >
+                <ChevronRight size={24} />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/65 px-4 py-2 text-sm font-black text-white">
+                {activeIndex + 1} / {activityGallery.images.length}
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+              {activityGallery.images.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-16 w-24 flex-none overflow-hidden rounded-xl border-2 transition-all duration-300 sm:h-20 sm:w-32 ${
+                    activeIndex === index
+                      ? "border-blue-300 opacity-100"
+                      : "border-white/20 opacity-60 hover:opacity-100"
+                  }`}
+                  aria-label={`${index + 1}번 사진 보기`}
+                >
+                  <img
+                    src={image}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    aria-hidden="true"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 function Notice() {
   return (
     <section id="notice" className="bg-white py-16 sm:py-20 dark:bg-slate-950">
@@ -872,6 +1053,7 @@ export default function App() {
         <main>
           <Hero onPageChange={setPage} />
           <Programs />
+          <ActivityGallery />
           <Notice />
           <Partners />
         </main>
